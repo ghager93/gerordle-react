@@ -27,6 +27,16 @@ const convertWordtoGuessArray = word => {
   return guessArray;
 }
 
+const GuessGrid = ({ words }) => (
+  <div className="guess-grid">
+    {
+      words.slice(0, 6).map(
+        word => <GuessRow word={word} />
+      )
+    }
+  </div>
+)
+
 function App() {
   return (
     <div className="App">
@@ -34,30 +44,7 @@ function App() {
         <h1>Gerordle.</h1>
       </div>
       <div id="main-area">
-        <div id="guess-grid">
-          <GuessRow word='AAAAA' />
-          <GuessRow word='hello' />
-          <GuessRow word='wOrLd' />
-          <GuessRow word='qwertyuiop' />
-          <GuessRow word='abc' />
-          <div className="guess-row">
-            <div className="guess-square">
-              <p>A</p>
-            </div>
-            <div className="guess-square">
-              <p>B</p>
-            </div>
-            <div className="guess-square">
-              <p>C</p>
-            </div>
-            <div className="guess-square">
-              <p>D</p>
-            </div>
-            <div className="guess-square">
-              <p>E</p>
-            </div>
-          </div>
-        </div>
+        <GuessGrid words={['hello', 'world', 'abc', '1@3$5^7', '', '']} />
         <div id="keyboard">
           <button className="keyboard-button">Q</button>
           <button className="keyboard-button">W</button>
