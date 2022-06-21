@@ -1,6 +1,32 @@
 import logo from "./logo.svg";
 import "./App.css";
 
+const GuessSquare = ({ letter }) => (
+  <div className="guess-square">
+    <p>{ letter.toUpperCase() }</p>
+  </div>
+);
+
+const GuessRow = ({ word }) => (
+  <div className="guess-row">
+    { 
+      convertWordtoGuessArray(word).map(
+        letter => <GuessSquare letter={letter} />
+      )
+    }
+  </div>
+);
+
+const convertWordtoGuessArray = word => {
+  let guessArray = ['', '', '', '', ''];
+
+  word.slice(0, 5).split('').map(
+    (letter, index) => guessArray[index] = letter
+  );
+
+  return guessArray;
+}
+
 function App() {
   return (
     <div className="App">
@@ -9,91 +35,11 @@ function App() {
       </div>
       <div id="main-area">
         <div id="guess-grid">
-          <div className="guess-row">
-            <div className="guess-square">
-              <p>A</p>
-            </div>
-            <div className="guess-square">
-              <p>B</p>
-            </div>
-            <div className="guess-square">
-              <p>C</p>
-            </div>
-            <div className="guess-square">
-              <p>D</p>
-            </div>
-            <div className="guess-square">
-              <p>E</p>
-            </div>
-          </div>
-          <div className="guess-row">
-            <div className="guess-square">
-              <p>A</p>
-            </div>
-            <div className="guess-square">
-              <p>B</p>
-            </div>
-            <div className="guess-square">
-              <p>C</p>
-            </div>
-            <div className="guess-square">
-              <p>D</p>
-            </div>
-            <div className="guess-square">
-              <p>E</p>
-            </div>
-          </div>
-          <div className="guess-row">
-            <div className="guess-square">
-              <p>A</p>
-            </div>
-            <div className="guess-square">
-              <p>B</p>
-            </div>
-            <div className="guess-square">
-              <p>C</p>
-            </div>
-            <div className="guess-square">
-              <p>D</p>
-            </div>
-            <div className="guess-square">
-              <p>E</p>
-            </div>
-          </div>
-          <div className="guess-row">
-            <div className="guess-square">
-              <p>A</p>
-            </div>
-            <div className="guess-square">
-              <p>B</p>
-            </div>
-            <div className="guess-square">
-              <p>C</p>
-            </div>
-            <div className="guess-square">
-              <p>D</p>
-            </div>
-            <div className="guess-square">
-              <p>E</p>
-            </div>
-          </div>
-          <div className="guess-row">
-            <div className="guess-square">
-              <p>A</p>
-            </div>
-            <div className="guess-square">
-              <p>B</p>
-            </div>
-            <div className="guess-square">
-              <p>C</p>
-            </div>
-            <div className="guess-square">
-              <p>D</p>
-            </div>
-            <div className="guess-square">
-              <p>E</p>
-            </div>
-          </div>
+          <GuessRow word='AAAAA' />
+          <GuessRow word='hello' />
+          <GuessRow word='wOrLd' />
+          <GuessRow word='qwertyuiop' />
+          <GuessRow word='abc' />
           <div className="guess-row">
             <div className="guess-square">
               <p>A</p>
