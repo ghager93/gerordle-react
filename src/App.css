@@ -15,7 +15,7 @@ body {
   padding: 5px;
 }
 
-#top-area {
+.top-area {
   background-color: #222222;
 
   padding-top: 24px;
@@ -24,7 +24,7 @@ body {
   border-radius: 10px;
 }
 
-#main-area {
+.main-area {
   background-color: #444444;
 
   display: flex;
@@ -74,7 +74,7 @@ body {
   gap: 1px;
 }
 
-#keyboard {
+.keyboard {
   margin: auto;
   display: flex;
 

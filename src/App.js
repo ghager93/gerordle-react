@@ -1,5 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
+import { render } from "@testing-library/react";
 
 const GuessSquare = ({ letter }) => (
   <div className="guess-square">
@@ -57,20 +58,20 @@ const TopArea = () => (
   </div>
 )
 
-const MainArea = () => (
-  <div className="main-area">
-    <GuessGrid words={['hello', 'world', 'abc', '1@3$5^7', '', '']} />
-    <Keyboard />
-  </div>
-)
-
-function App() {
-  const onKey = ({ e }) => {
-    console.log()
+const MainArea = () => {
+  const handleKeyUp = (e) => {
+    console.log(String.fromCharCode(e.keyCode));
   }
 
-  let testString = '';
+  return (
+    <div className="main-area" onKeyUp={handleKeyUp} tabIndex="-1">
+      <GuessGrid words={['hello', 'world', 'abc', '1@3$5^7', '', '']} />
+      <Keyboard />
+    </div>
+  );
+}
 
+function App() {
   return (
     <div className="App">
       <TopArea />
