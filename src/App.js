@@ -37,45 +37,44 @@ const GuessGrid = ({ words }) => (
   </div>
 )
 
+const Keyboard = () => {
+  const KEYS = "QWERTYUIOPASDFGHJKLZXCVBNM".split('');
+  
+  return (
+    <div className="keyboard">
+      {
+        KEYS.map(key => <button className="keyboard-button">{ key }</button>)
+      }
+      <button className="keyboard-button">ENTER</button>
+      <button className="keyboard-button">↩</button>
+    </div>
+  );
+}
+
+const TopArea = () => (
+  <div className="top-area">
+    <h1>Gerordle.</h1>
+  </div>
+)
+
+const MainArea = () => (
+  <div className="main-area">
+    <GuessGrid words={['hello', 'world', 'abc', '1@3$5^7', '', '']} />
+    <Keyboard />
+  </div>
+)
+
 function App() {
+  const onKey = ({ e }) => {
+    console.log()
+  }
+
+  let testString = '';
+
   return (
     <div className="App">
-      <div id="top-area">
-        <h1>Gerordle.</h1>
-      </div>
-      <div id="main-area">
-        <GuessGrid words={['hello', 'world', 'abc', '1@3$5^7', '', '']} />
-        <div id="keyboard">
-          <button className="keyboard-button">Q</button>
-          <button className="keyboard-button">W</button>
-          <button className="keyboard-button">E</button>
-          <button className="keyboard-button">R</button>
-          <button className="keyboard-button">T</button>
-          <button className="keyboard-button">Y</button>
-          <button className="keyboard-button">U</button>
-          <button className="keyboard-button">I</button>
-          <button className="keyboard-button">O</button>
-          <button className="keyboard-button">P</button>
-          <button className="keyboard-button">A</button>
-          <button className="keyboard-button">S</button>
-          <button className="keyboard-button">D</button>
-          <button className="keyboard-button">F</button>
-          <button className="keyboard-button">G</button>
-          <button className="keyboard-button">H</button>
-          <button className="keyboard-button">J</button>
-          <button className="keyboard-button">K</button>
-          <button className="keyboard-button">L</button>
-          <button className="keyboard-button">ENTER</button>
-          <button className="keyboard-button">Z</button>
-          <button className="keyboard-button">X</button>
-          <button className="keyboard-button">C</button>
-          <button className="keyboard-button">V</button>
-          <button className="keyboard-button">B</button>
-          <button className="keyboard-button">N</button>
-          <button className="keyboard-button">M</button>
-          <button className="keyboard-button">&#8617</button>
-        </div>
-      </div>
+      <TopArea />
+      <MainArea />
     </div>
   );
 }
