@@ -1,3 +1,4 @@
+import { render } from "@testing-library/react";
 import { useState } from "react";
 import "./App.css";
 
@@ -59,16 +60,25 @@ const TopArea = () => (
 
 const MainArea = () => {
   const handleKeyUp = (e) => {
-    setTestString(testString + String.fromCharCode(e.keyCode));
+    //TODO handle enter
+    //TODO handle backspace
+    //TODO check for letters
+
+    let currGuess = guesses[currGuessNum]
+    if (currGuess.length < 5) {
+      let currGuesses = guesses.slice()
+      currGuesses[currGuessNum] = currGuess + e.key.toUpperCase();
+      setGuesses(currGuesses);
+    } 
   }
 
-  const [testString, setTestString] = useState("");
+  const [guesses, setGuesses] = useState(["", "", "", "", "", ""]);
+  const [currGuessNum, setCurrGuessNum] = useState(0);
 
   return (
     <div className="main-area" onKeyUp={handleKeyUp} tabIndex="-1">
-      <GuessGrid words={['hello', 'world', 'abc', '1@3$5^7', '', '']} />
+      <GuessGrid words={guesses} />
       <Keyboard />
-      <p>{ testString }</p>
     </div>
   );
 }
