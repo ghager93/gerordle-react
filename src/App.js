@@ -1,6 +1,5 @@
-import logo from "./logo.svg";
+import { useState } from "react";
 import "./App.css";
-import { render } from "@testing-library/react";
 
 const GuessSquare = ({ letter }) => (
   <div className="guess-square">
@@ -60,13 +59,16 @@ const TopArea = () => (
 
 const MainArea = () => {
   const handleKeyUp = (e) => {
-    console.log(String.fromCharCode(e.keyCode));
+    setTestString(testString + String.fromCharCode(e.keyCode));
   }
+
+  const [testString, setTestString] = useState("");
 
   return (
     <div className="main-area" onKeyUp={handleKeyUp} tabIndex="-1">
       <GuessGrid words={['hello', 'world', 'abc', '1@3$5^7', '', '']} />
       <Keyboard />
+      <p>{ testString }</p>
     </div>
   );
 }
