@@ -62,14 +62,16 @@ const MainArea = () => {
   const handleKeyUp = (e) => {
     //TODO handle enter
     //TODO handle backspace
-    //TODO check for letters
+    let key = e.key.toUpperCase();
 
-    let currGuess = guesses[currGuessNum]
-    if (currGuess.length < 5) {
-      let currGuesses = guesses.slice()
-      currGuesses[currGuessNum] = currGuess + e.key.toUpperCase();
-      setGuesses(currGuesses);
-    } 
+    if (key.length == 1 && key.charCodeAt(0) >= 65 && key.charCodeAt(0) <= 90) {
+      let currGuess = guesses[currGuessNum]
+      if (currGuess.length < 5) {
+        let currGuesses = guesses.slice()
+        currGuesses[currGuessNum] = currGuess + key;
+        setGuesses(currGuesses);
+      } 
+    }
   }
 
   const [guesses, setGuesses] = useState(["", "", "", "", "", ""]);
