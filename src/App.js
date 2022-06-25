@@ -3,17 +3,38 @@ import { toast, ToastContainer } from "react-toastify";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 
-const GuessSquare = ({ letter }) => (
-  <div className="guess-square">
+const analyseGuess = (guess, answer) => {
+  let guessArr = guess.split('');
+  let answerArr = answer.split('');
+  let analysisArr = [0, 0, 0, 0, 0];
+
+  for (let i = 0; i < guessArr.length; i++) {
+    if (guessArr[i] === answerArr[i]) {
+      analysisArr[i] = 2;
+    }
+    else if (answerArr.includes(guessArr[i])) {
+      analysisArr[i] = 1;
+    }
+  }
+
+  return analysisArr;
+}
+
+const GuessSquare = ({ letter, status }) => {
+  const backgroundColours = ['dark-grey', 'yellow', 'green'];
+
+  return (
+  <div className="guess-square" style={{backgroundColor: backgroundColours[status]}}>
     <p>{ letter.toUpperCase() }</p>
   </div>
-);
+  )
+}
 
-const GuessRow = ({ word }) => (
+const GuessRow = ({ word, status }) => (
   <div className="guess-row">
     { 
       convertWordtoGuessArray(word).map(
-        letter => <GuessSquare letter={letter} />
+        (letter, i) => <GuessSquare letter={letter} status={status[i]} />
       )
     }
   </div>
@@ -29,11 +50,11 @@ const convertWordtoGuessArray = word => {
   return guessArray;
 }
 
-const GuessGrid = ({ words }) => (
+const GuessGrid = ({ words, status }) => (
   <div className="guess-grid">
     {
       words.slice(0, 6).map(
-        word => <GuessRow word={word} />
+        (word, i) => <GuessRow word={word} status={status[i]} />
       )
     }
   </div>
@@ -61,8 +82,6 @@ const TopArea = () => (
 
 const MainArea = () => {
   const handleKeyUp = (e) => {
-    //TODO handle enter
-    //TODO handle backspace
     let key = e.key.toUpperCase();
 
     if (key.length === 1 && key.charCodeAt(0) >= 65 && key.charCodeAt(0) <= 90) {
@@ -85,18 +104,31 @@ const MainArea = () => {
         notify('Not enough letters!')
       }
       else {
+        if (guesses[currGuessNum] === answer) {
+          notify('You Won!')
+        }
+        let currSquareStatus = squareStatus.slice();
+        let currGuessSquareStatus = currSquareStatus[currGuessNum].slice()
+        currGuessSquareStatus = analyseGuess(guesses[currGuessNum], answer);
+        currSquareStatus[currGuessNum] = currGuessSquareStatus;
+        setSquareStatus(currSquareStatus);
         setCurrGuessNum(currGuessNum + 1);
+
+        // console.log('function output: ' + currGuessSquareStatus);
+        // console.log('state: ' + squareStatus);
       }
     }
   }
 
   const [guesses, setGuesses] = useState(["", "", "", "", "", ""]);
   const [currGuessNum, setCurrGuessNum] = useState(0);
+  const [squareStatus, setSquareStatus] = useState([...Array(6)].map(x=>Array(5).fill(0)));
+  const [answer, setAnswer] = useState("RIGHT");
 
   return (
     <div className="main-area" onKeyUp={handleKeyUp} tabIndex="-1">
       <ToastContainer />
-      <GuessGrid words={guesses} />
+      <GuessGrid words={guesses} status={squareStatus} />
       <Keyboard />
     </div>
   );
