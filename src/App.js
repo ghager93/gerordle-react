@@ -1,6 +1,7 @@
-import { render } from "@testing-library/react";
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const GuessSquare = ({ letter }) => (
   <div className="guess-square">
@@ -64,13 +65,28 @@ const MainArea = () => {
     //TODO handle backspace
     let key = e.key.toUpperCase();
 
-    if (key.length == 1 && key.charCodeAt(0) >= 65 && key.charCodeAt(0) <= 90) {
+    if (key.length === 1 && key.charCodeAt(0) >= 65 && key.charCodeAt(0) <= 90) {
       let currGuess = guesses[currGuessNum]
       if (currGuess.length < 5) {
         let currGuesses = guesses.slice()
         currGuesses[currGuessNum] = currGuess + key;
         setGuesses(currGuesses);
       } 
+    }
+
+    if (key === 'BACKSPACE') {
+      let currGuesses = guesses.slice();
+      currGuesses[currGuessNum] = currGuesses[currGuessNum].slice(0, -1);
+      setGuesses(currGuesses);
+    }
+
+    if (key === 'ENTER') {
+      if (guesses[currGuessNum].length < 5) {
+        notify('Not enough letters!')
+      }
+      else {
+        setCurrGuessNum(currGuessNum + 1);
+      }
     }
   }
 
@@ -79,10 +95,15 @@ const MainArea = () => {
 
   return (
     <div className="main-area" onKeyUp={handleKeyUp} tabIndex="-1">
+      <ToastContainer />
       <GuessGrid words={guesses} />
       <Keyboard />
     </div>
   );
+}
+
+const notify = (msg) => {
+  toast(msg);
 }
 
 function App() {
