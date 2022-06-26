@@ -3,96 +3,101 @@ import {toast, ToastContainer} from 'react-toastify';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-const analyseGuess = (guess, answer) => {
-  const guessArr = guess.split('');
-  const answerArr = answer.split('');
-  const analysisArr = [0, 0, 0, 0, 0];
+import GuessGrid from './components/GuessGrid';
+import Keyboard from './components/Keyboard';
 
-  for (let i = 0; i < guessArr.length; i++) {
-    if (guessArr[i] === answerArr[i]) {
-      analysisArr[i] = 2;
-      guessArr[i] = '#';
-      answerArr[i] = '#';
-    }
-  }
+import {analyseGuess} from './utils/utils';
 
-  for (let i = 0; i < guessArr.length; i++) {
-    if (guessArr[i] !== '#') {
-      for (let j = 0; j < guessArr.length; j++) {
-        if (guessArr[i] === answerArr[j]) {
-          analysisArr[i] = 1;
-          answerArr[j] = '#';
-        }
-      }
-    }
-  }
+// const analyseGuess = (guess, answer) => {
+//   const guessArr = guess.split('');
+//   const answerArr = answer.split('');
+//   const analysisArr = [0, 0, 0, 0, 0];
 
-  return analysisArr;
-};
+//   for (let i = 0; i < guessArr.length; i++) {
+//     if (guessArr[i] === answerArr[i]) {
+//       analysisArr[i] = 2;
+//       guessArr[i] = '#';
+//       answerArr[i] = '#';
+//     }
+//   }
 
-const GuessSquare = ({letter, status}) => {
-  const backgroundColours = ['dark-grey', 'yellow', 'green'];
+//   for (let i = 0; i < guessArr.length; i++) {
+//     if (guessArr[i] !== '#') {
+//       for (let j = 0; j < guessArr.length; j++) {
+//         if (guessArr[i] === answerArr[j]) {
+//           analysisArr[i] = 1;
+//           answerArr[j] = '#';
+//         }
+//       }
+//     }
+//   }
 
-  return (
-    <div
-      className="guess-square"
-      style={{backgroundColor: backgroundColours[status]}}
-    >
-      <p>{letter.toUpperCase()}</p>
-    </div>
-  );
-};
+//   return analysisArr;
+// };
 
-const GuessRow = ({word, status}) => (
-  <div className="guess-row">
-    {convertWordtoGuessArray(word).map((letter, i) => (
-      <GuessSquare letter={letter} status={status[i]} />
-    ))}
-  </div>
-);
+// const GuessSquare = ({letter, status}) => {
+//   const backgroundColours = ['dark-grey', 'yellow', 'green'];
 
-const convertWordtoGuessArray = (word) => {
-  const guessArray = ['', '', '', '', ''];
+//   return (
+//     <div
+//       className="guess-square"
+//       style={{backgroundColor: backgroundColours[status]}}
+//     >
+//       <p>{letter.toUpperCase()}</p>
+//     </div>
+//   );
+// };
 
-  word
-      .slice(0, 5)
-      .split('')
-      .map((letter, index) => (guessArray[index] = letter));
+// const GuessRow = ({word, status}) => (
+//   <div className="guess-row">
+//     {convertWordtoGuessArray(word).map((letter, i) => (
+//       <GuessSquare letter={letter} status={status[i]} />
+//     ))}
+//   </div>
+// );
 
-  return guessArray;
-};
+// const convertWordtoGuessArray = (word) => {
+//   const guessArray = ['', '', '', '', ''];
 
-const GuessGrid = ({words, status}) => (
-  <div className="guess-grid">
-    {words.slice(0, 6).map((word, i) => (
-      <GuessRow word={word} status={status[i]} />
-    ))}
-  </div>
-);
+//   word
+//       .slice(0, 5)
+//       .split('')
+//       .map((letter, index) => (guessArray[index] = letter));
 
-const Keyboard = () => {
-  const KEYS_FIRST_ROW = 'QWERTYUIOP'.split('');
-  const KEYS_SECOND_ROW = 'ASDFGHJKL'.split('');
-  const KEYS_THIRD_ROW = ['↩', ...'ZXCVBNM'.split(''), 'ENTER'];
+//   return guessArray;
+// };
 
-  return (
-    <div className="keyboard">
-      <KeyboardRow keys={KEYS_FIRST_ROW} />
-      <KeyboardRow keys={KEYS_SECOND_ROW} />
-      <KeyboardRow keys={KEYS_THIRD_ROW} />
-    </div>
-  );
-};
+// const GuessGrid = ({words, status}) => (
+//   <div className="guess-grid">
+//     {words.slice(0, 6).map((word, i) => (
+//       <GuessRow word={word} status={status[i]} />
+//     ))}
+//   </div>
+// );
 
-const KeyboardRow = ({ keys }) => {
-  return (
-    <div className="keyboard-row">
-      {keys.map((key) => (
-        <button className="keyboard-button">{key}</button>
-      ))}
-    </div>
-  );
-}
+// const Keyboard = () => {
+//   const KEYS_FIRST_ROW = 'QWERTYUIOP'.split('');
+//   const KEYS_SECOND_ROW = 'ASDFGHJKL'.split('');
+//   const KEYS_THIRD_ROW = ['↩', ...'ZXCVBNM'.split(''), 'ENTER'];
+
+//   return (
+//     <div className="keyboard">
+//       <KeyboardRow keys={KEYS_FIRST_ROW} />
+//       <KeyboardRow keys={KEYS_SECOND_ROW} />
+//       <KeyboardRow keys={KEYS_THIRD_ROW} />
+//     </div>
+//   );
+// };
+
+// const KeyboardRow = ({ keys }) => {
+//   return (
+//     <div className="keyboard-row">
+//       {keys.map((key) => (
+//         <button className="keyboard-button">{key}</button>
+//       ))}
+//     </div>
+//   );
+// }
 
 const TopArea = () => (
   <div className="top-area">
