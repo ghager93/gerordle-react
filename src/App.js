@@ -18,6 +18,10 @@ const MainArea = () => {
   const handleKeyUp = (e) => {
     const key = e.key.toUpperCase();
 
+    handleInput(key);
+  };
+
+  const handleInput = (key) => {
     if (
       key.length === 1 &&
       key.charCodeAt(0) >= 65 &&
@@ -30,13 +34,13 @@ const MainArea = () => {
         setGuesses(currGuesses);
       }
     }
-
-    if (key === 'BACKSPACE') {
+  
+    if (key === 'BACKSPACE' || key === '↩') {
       const currGuesses = guesses.slice();
       currGuesses[currGuessNum] = currGuesses[currGuessNum].slice(0, -1);
       setGuesses(currGuesses);
     }
-
+  
     if (key === 'ENTER') {
       if (currGuessNum < 6) {
         if (guesses[currGuessNum].length < 5) {
@@ -47,18 +51,18 @@ const MainArea = () => {
           currGuessSquareStatus = analyseGuess(guesses[currGuessNum], answer);
           currSquareStatus[currGuessNum] = currGuessSquareStatus;
           setSquareStatus(currSquareStatus);
-
+  
           if (guesses[currGuessNum] === answer) {
             notify('You Won!');
           } else if (currGuessNum === 5) {
             notify('You lost :(, the answer was ' + answer);
           } 
-
+  
           setCurrGuessNum(currGuessNum + 1);
         }
       }
-    }
-  };
+    } 
+  }
 
   const [guesses, setGuesses] = useState(['', '', '', '', '', '']);
   const [currGuessNum, setCurrGuessNum] = useState(0);
@@ -71,7 +75,7 @@ const MainArea = () => {
     <div className="main-area" onKeyUp={handleKeyUp} tabIndex="-1">
       <ToastContainer />
       <GuessGrid words={guesses} status={squareStatus} />
-      <Keyboard />
+      <Keyboard handleInput={handleInput} />
     </div>
   );
 };
