@@ -75,18 +75,42 @@ body {
 }
 
 .keyboard {
-  margin: auto;
   display: flex;
-
-  gap: 3px;
-  max-width: 450px;
-
   flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .keyboard-button {
   min-width: 40px;
-  min-height: 30px;
+  height: 45px;
+  
+  padding: 0 6px;
+  margin: 2px 2px;
+  
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  
+  background-color: light-gray;
+  color: black;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  text-transform: uppercase;
+  font-family: inherit;
+  font-size: large;
+}
+
+.keyboard-row {
+  display: flex;
 }
 
