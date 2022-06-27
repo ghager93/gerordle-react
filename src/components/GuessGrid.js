@@ -14,7 +14,7 @@ const GuessSquare = ({letter, status}) => {
 const GuessRow = ({word, status}) => (
   <div className="guess-row">
     {convertWordtoGuessArray(word).map((letter, i) => (
-      <GuessSquare letter={letter} status={status[i]} />
+      <GuessSquare key={i} letter={letter} status={status[i]} />
     ))}
   </div>
 );
@@ -34,7 +34,7 @@ const GuessGrid = ({words, status}) => {
   return (
     <div className="guess-grid">
       {words.slice(0, 6).map((word, i) => (
-        <GuessRow word={word} status={status[i]} />
+        <GuessRow key={i} word={word} status={status[i]} />
       ))}
     </div>
   )

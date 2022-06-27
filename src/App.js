@@ -51,6 +51,10 @@ const MainArea = () => {
           currGuessSquareStatus = analyseGuess(guesses[currGuessNum], answer);
           currSquareStatus[currGuessNum] = currGuessSquareStatus;
           setSquareStatus(currSquareStatus);
+
+          let currGuessedLetters = guessedLetters;
+          [...guesses[currGuessNum]].forEach(letter => currGuessedLetters.add(letter));
+          setGuessedLetters(currGuessedLetters);
   
           if (guesses[currGuessNum] === answer) {
             notify('You Won!');
@@ -70,12 +74,13 @@ const MainArea = () => {
       [...Array(6)].map((x) => Array(5).fill(0)),
   );
   const [answer, setAnswer] = useState('RADIO');
+  const [guessedLetters, setGuessedLetters] = useState(new Set());
 
   return (
     <div className="main-area" onKeyUp={handleKeyUp} tabIndex="-1">
       <ToastContainer />
       <GuessGrid words={guesses} status={squareStatus} />
-      <Keyboard handleInput={handleInput} />
+      <Keyboard handleInput={handleInput} guessedLetters={guessedLetters}/>
     </div>
   );
 };
