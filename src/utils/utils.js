@@ -1,3 +1,7 @@
+import {useState} from 'react';
+
+import {words} from '../words.js';
+
 export const analyseGuess = (guess, answer) => {
     const guessArr = guess.split('');
     const answerArr = answer.split('');
@@ -24,3 +28,8 @@ export const analyseGuess = (guess, answer) => {
   
     return analysisArr;
 };
+
+export const getRandomWord = () => {
+  console.log(Math.floor(Math.random() * words.length));
+  return words[Math.floor(Math.random() * words.length)];
+}

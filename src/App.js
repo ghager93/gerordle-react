@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import GuessGrid from './components/GuessGrid';
 import Keyboard from './components/Keyboard';
 
-import {analyseGuess} from './utils/utils';
+import {analyseGuess, getRandomWord} from './utils/utils';
 
 const TopArea = () => (
   <div className="top-area">
@@ -57,9 +57,11 @@ const MainArea = () => {
           setGuessedLetters(currGuessedLetters);
   
           if (guesses[currGuessNum] === answer) {
-            notify('You Won!');
+            // notify('You Won!');
+            setBanner('You Won!')
           } else if (currGuessNum === 5) {
-            notify('You lost :(, the answer was ' + answer);
+            // notify('You lost :(, the answer was ' + answer);
+            setBanner('Word was ' + answer + ' 😞')
           } 
   
           setCurrGuessNum(currGuessNum + 1);
@@ -73,12 +75,14 @@ const MainArea = () => {
   const [squareStatus, setSquareStatus] = useState(
       [...Array(6)].map((x) => Array(5).fill(0)),
   );
-  const [answer, setAnswer] = useState('RADIO');
+  const [answer, setAnswer] = useState(getRandomWord().toUpperCase());
   const [guessedLetters, setGuessedLetters] = useState(new Set());
+  const [banner, setBanner] = useState(' ');
 
   return (
     <div className="main-area" onKeyUp={handleKeyUp} tabIndex="-1">
       <ToastContainer />
+      <h2 className="banner">{banner}</h2>
       <GuessGrid words={guesses} status={squareStatus} />
       <Keyboard handleInput={handleInput} guessedLetters={guessedLetters}/>
     </div>
