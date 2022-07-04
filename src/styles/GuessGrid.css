@@ -1,0 +1,47 @@
+.guess-square,
+.guess-square-misplaced,
+.guess-square-correct {
+  border: 3px solid gray;
+  border-radius: 3px;
+  background-color: var(--background-color);
+  
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: xx-large;
+  color: var(--text-color);
+}
+
+.guess-square-misplaced {
+  background-color: var(--highlight-misplaced-color);
+}
+
+.guess-square-correct {
+  background-color: var(--highlight-correct-color);
+}
+
+.guess-row {
+  display: flex;
+
+  flex-direction: row;
+
+  gap: 1px;
+}
+
+.guess-grid {
+  margin: auto;
+
+  background-color: inherit;
+
+  border-radius: 3px;
+
+  display: flex;
+  flex-direction: column;
+  
+  gap: 1px;
+}
+  

@@ -1,0 +1,44 @@
+.keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.keyboard-button,
+.keyboard-button-dimmed {
+  min-width: 40px;
+  height: 45px;
+
+  padding: 0 6px;
+  margin: 2px 2px;
+
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  background-color: light-gray;
+  color: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-transform: uppercase;
+  font-family: inherit;
+  font-size: large;
+}
+
+.keyboard-button-dimmed {
+  background-color: gray;
+}
+
+.keyboard-row {
+  display: flex;
+}

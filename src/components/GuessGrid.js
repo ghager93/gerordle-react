@@ -1,11 +1,8 @@
 const GuessSquare = ({letter, status}) => {
-  const backgroundColours = ['dark-grey', 'yellow', 'green'];
+  const statusClasses = ["guess-square", "guess-square-misplaced", "guess-square-correct"];
 
   return (
-    <div
-      className="guess-square"
-      style={{backgroundColor: backgroundColours[status]}}
-    >
+    <div className={statusClasses[status]}>
       <p>{letter.toUpperCase()}</p>
     </div>
   );

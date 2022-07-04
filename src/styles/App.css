@@ -1,0 +1,56 @@
+:root {
+  --background-color: #333333;  
+  --foreground-color: #555555;
+  --highlight-correct-color: #8ac926;
+  --highlight-misplaced-color: #ffca3a;
+  --text-color: #8e9aaf;
+}
+
+.App {
+  height: auto;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  height: auto;
+  width: auto;
+  margin: 0 auto;
+
+  padding: 5px;
+}
+
+.top-area {
+  background-color: var(--background-color);
+
+  padding-top: 24px;
+  padding-left: 10px;
+
+  border-radius: 10px;
+}
+
+.main-area {
+  background-color: var(--foreground-color);
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+  padding: 10px 0;
+  height: auto;
+  width: auto;
+
+  border-radius: 10px;
+}
+
+.banner {
+  min-height: 30px;
+  display: flex;
+  text-transform: uppercase;
+  font-family: inherit;
+  align-items: center;
+  justify-content: center;
+}

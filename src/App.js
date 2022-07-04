@@ -1,12 +1,14 @@
 import {useState} from 'react';
 import {toast, ToastContainer} from 'react-toastify';
-import './App.css';
+import './styles/App.css';
+import './styles/Keyboard.css';
+import './styles/GuessGrid.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 import GuessGrid from './components/GuessGrid';
 import Keyboard from './components/Keyboard';
 
-import {analyseGuess, getRandomWord} from './utils/utils';
+import {analyseGuess, getRandomWord, isAWord} from './utils/utils';
 
 const TopArea = () => (
   <div className="top-area">
@@ -45,6 +47,8 @@ const MainArea = () => {
       if (currGuessNum < 6) {
         if (guesses[currGuessNum].length < 5) {
           notify('Not enough letters!');
+        } else if (!isAWord(guesses[currGuessNum])) {
+          notify('Not a word!');
         } else {
           const currSquareStatus = squareStatus.slice();
           let currGuessSquareStatus = currSquareStatus[currGuessNum].slice();
