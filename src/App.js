@@ -23,54 +23,94 @@ const MainArea = () => {
     handleInput(key);
   };
 
-  const handleInput = (key) => {
-    if (
+  const handleLetter = (key) => {
+    const currGuess = guesses[currGuessNum];
+    if (currGuess.length < 5) {
+      const currGuesses = guesses.slice();
+      currGuesses[currGuessNum] = currGuess + key;
+      setGuesses(currGuesses);
+    }
+  };
+
+  const isLetter = (key) => {
+    return (
       key.length === 1 &&
       key.charCodeAt(0) >= 65 &&
       key.charCodeAt(0) <= 90
-    ) {
-      const currGuess = guesses[currGuessNum];
-      if (currGuess.length < 5) {
-        const currGuesses = guesses.slice();
-        currGuesses[currGuessNum] = currGuess + key;
-        setGuesses(currGuesses);
-      }
-    }
-  
-    if (key === 'BACKSPACE' || key === '↩') {
-      const currGuesses = guesses.slice();
-      currGuesses[currGuessNum] = currGuesses[currGuessNum].slice(0, -1);
-      setGuesses(currGuesses);
-    }
-  
-    if (key === 'ENTER') {
-      if (currGuessNum < 6) {
-        if (guesses[currGuessNum].length < 5) {
-          notify('Not enough letters!');
-        } else if (!isAWord(guesses[currGuessNum])) {
-          notify('Not a word!');
-        } else {
-          const currSquareStatus = squareStatus.slice();
-          let currGuessSquareStatus = currSquareStatus[currGuessNum].slice();
-          currGuessSquareStatus = analyseGuess(guesses[currGuessNum], answer);
-          currSquareStatus[currGuessNum] = currGuessSquareStatus;
-          setSquareStatus(currSquareStatus);
+    )
+  };
 
-          let currGuessedLetters = guessedLetters;
-          [...guesses[currGuessNum]].forEach(letter => currGuessedLetters.add(letter));
-          setGuessedLetters(currGuessedLetters);
-  
-          if (guesses[currGuessNum] === answer) {
-            // notify('You Won!');
-            setBanner('You Won!')
-          } else if (currGuessNum === 5) {
-            // notify('You lost :(, the answer was ' + answer);
-            setBanner('Word was ' + answer + ' 😞')
-          } 
-  
-          setCurrGuessNum(currGuessNum + 1);
-        }
-      }
+  const getKeyStatus = (key) => {
+    if (correctLetters.has(key)) {
+      return 3;
+    } else if (misplacedLetters.has(key)) {
+      return 2;
+    } else if (guessedLetters.has(key)) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  const handleReturn = () => {
+    const currGuesses = guesses.slice();
+    currGuesses[currGuessNum] = currGuesses[currGuessNum].slice(0, -1);
+    setGuesses(currGuesses);
+  }
+
+  const handleEnter = () => {
+    if (currGuessNum < 6) {
+      if (guesses[currGuessNum].length < 5) {
+        notify('Not enough letters!');
+      } else if (!isAWord(guesses[currGuessNum])) {
+        notify('Not a word!');
+      } else {
+        const currSquareStatus = squareStatus.slice();
+        let currGuessSquareStatus = currSquareStatus[currGuessNum].slice();
+        currGuessSquareStatus = analyseGuess(guesses[currGuessNum], answer);
+        currSquareStatus[currGuessNum] = currGuessSquareStatus;
+        setSquareStatus(currSquareStatus);
+
+        let currGuessedLetters = guessedLetters;
+        [...guesses[currGuessNum]].forEach(letter => currGuessedLetters.add(letter));
+        setGuessedLetters(currGuessedLetters);
+
+        let currMisplacedLetters = misplacedLetters;
+        [...guesses[currGuessNum]].forEach((letter, i) => {
+          if (currGuessSquareStatus[i] === 1) {
+            currMisplacedLetters.add(letter);
+          }
+        })
+        setMisplacedLetters(currMisplacedLetters);
+
+        let currCorrectLetters = correctLetters;
+        [...guesses[currGuessNum]].forEach((letter, i) => {
+          if (currGuessSquareStatus[i] === 2) {
+            currCorrectLetters.add(letter);
+          }
+        })
+        setCorrectLetters(currCorrectLetters);
+
+        if (guesses[currGuessNum] === answer) {
+          setBanner('You Won!')
+        } else if (currGuessNum === 5) {
+          setBanner('Word was ' + answer + ' 😞')
+        } 
+
+        setCurrGuessNum(currGuessNum + 1);
+      };
+    }
+  }
+
+  const handleInput = (key) => {
+    if (isLetter(key)) {
+      handleLetter(key);
+    }
+    if (key === 'BACKSPACE' || key === '↩') {
+      handleReturn();
+    }
+    if (key === 'ENTER') {
+      handleEnter();
     } 
   }
 
@@ -82,13 +122,15 @@ const MainArea = () => {
   const [answer, setAnswer] = useState(getRandomWord().toUpperCase());
   const [guessedLetters, setGuessedLetters] = useState(new Set());
   const [banner, setBanner] = useState(' ');
+  const [misplacedLetters, setMisplacedLetters] = useState(new Set());
+  const [correctLetters, setCorrectLetters] = useState(new Set());
 
   return (
     <div className="main-area" onKeyUp={handleKeyUp} tabIndex="-1">
       <ToastContainer />
       <h2 className="banner">{banner}</h2>
       <GuessGrid words={guesses} status={squareStatus} />
-      <Keyboard handleInput={handleInput} guessedLetters={guessedLetters}/>
+      <Keyboard handleInput={handleInput} getKeyStatus={getKeyStatus}/>
     </div>
   );
 };

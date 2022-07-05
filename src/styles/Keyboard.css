@@ -7,7 +7,9 @@
 }
 
 .keyboard-button,
-.keyboard-button-dimmed {
+.keyboard-button-correct,
+.keyboard-button-misplaced,
+.keyboard-button-incorrect {
   min-width: 40px;
   height: 45px;
 
@@ -35,7 +37,15 @@
   font-size: large;
 }
 
-.keyboard-button-dimmed {
+.keyboard-button-correct {
+  background-color: var(--highlight-correct-color);
+}
+
+.keyboard-button-misplaced {
+  background-color: var(--highlight-misplaced-color);
+}
+
+.keyboard-button-incorrect {
   background-color: gray;
 }
 
