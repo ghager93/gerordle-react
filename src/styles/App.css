@@ -49,7 +49,6 @@ body {
 .banner {
   min-height: 30px;
   display: flex;
-  text-transform: uppercase;
   font-family: inherit;
   align-items: center;
   justify-content: center;

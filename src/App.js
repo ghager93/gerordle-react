@@ -9,6 +9,7 @@ import GuessGrid from './components/GuessGrid';
 import Keyboard from './components/Keyboard';
 
 import {analyseGuess, getRandomWord, isAWord} from './utils/utils';
+import { dark } from '@mui/material/styles/createPalette';
 
 const TopArea = () => (
   <div className="top-area">
@@ -127,7 +128,17 @@ const MainArea = () => {
 
   return (
     <div className="main-area" onKeyUp={handleKeyUp} tabIndex="-1">
-      <ToastContainer />
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <h2 className="banner">{banner}</h2>
       <GuessGrid words={guesses} status={squareStatus} />
       <Keyboard handleInput={handleInput} getKeyStatus={getKeyStatus}/>
@@ -136,7 +147,7 @@ const MainArea = () => {
 };
 
 const notify = (msg) => {
-  toast(msg);
+  toast(msg, {icon: "😱", theme: dark});
 };
 
 function App() {

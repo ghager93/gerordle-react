@@ -1,7 +1,4 @@
-import {useState} from 'react';
-
 import {words} from '../words.js';
-// TODO make word list uppercase
 
 export const analyseGuess = (guess, answer) => {
     const guessArr = guess.split('');
@@ -35,5 +32,5 @@ export const getRandomWord = () => {
 }
 
 export const isAWord = (word) => {
-  return words.includes(word.toLowerCase())
+  return words.includes(word.toUpperCase())
 }
