@@ -11,9 +11,18 @@ import Keyboard from './components/Keyboard';
 import {analyseGuess, getRandomWord, isAWord} from './utils/utils';
 import { dark } from '@mui/material/styles/createPalette';
 
+import github_logo from './iconmonstr-github-1.svg';
+
 const TopArea = () => (
   <div className="top-area">
-    <h1>Gerordle.</h1>
+    <div>
+      <h1>Gerordle.</h1>
+    </div>
+    <div>
+      <a href="https://github.com/ghager93/gerordle-react">
+        <img src={github_logo} alt="github" style={{width:"42px",height:"42px"}}/>
+      </a>
+    </div>
   </div>
 );
 
